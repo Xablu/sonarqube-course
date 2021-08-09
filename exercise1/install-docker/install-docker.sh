@@ -1,4 +1,11 @@
 #!/bin/bash
+# ------------------------------------
+#
+# This script will install docker.
+# This script is created for and tested on Ubuntu.
+# This script may not work on non-ubuntu systems!
+#
+# ------------------------------------
 
 # Update sources and apps
 apt update -y && apt upgrade -y
