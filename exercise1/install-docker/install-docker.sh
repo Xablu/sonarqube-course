@@ -31,8 +31,8 @@ fi
 apt install -y docker-compose
 
 # Update config files
-echo "vm.max_map_count=524288" >> /etc/sysctl.d/99-sonar.conf
-echo "fs.file-max=131072" >> /etc/sysctl.d/99-sonar.conf
+echo "vm.max_map_count=524288" >> /etc/sysctl.conf
+echo "fs.file-max=131072" >> /etc/sysctl.conf
 
 echo "Installing Docker complete. Rebooting now!"
 reboot
