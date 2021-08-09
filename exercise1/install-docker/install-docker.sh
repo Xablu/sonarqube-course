@@ -29,10 +29,3 @@ fi
 
 # Install docker-compose
 apt install -y docker-compose
-
-# Update config files
-echo "vm.max_map_count=524288" >> /etc/sysctl.conf
-echo "fs.file-max=131072" >> /etc/sysctl.conf
-
-echo "Installing Docker complete. Rebooting now!"
-reboot
