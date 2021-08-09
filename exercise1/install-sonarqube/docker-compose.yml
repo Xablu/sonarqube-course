@@ -16,6 +16,10 @@ services:
       - sonarqube_logs:/opt/sonarqube/logs
     ports:
       - "9000:9000"
+    ulimits:
+      nproc: 8192
+    ulimits:
+      nofile: 131072
   db:
     image: postgres:12
     restart: always
