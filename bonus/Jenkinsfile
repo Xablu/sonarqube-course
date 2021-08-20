@@ -3,7 +3,6 @@ def SQPROJECTKEY = "nodejsapp"
 def SQHOSTURL = "http://192.168.2.148:9000"
 def SQSCANNERHOME = "sonar-scanner"
 def SQENV = "sonarqube"
-def SQTOKEN = credentials('sonarqube')
 
 pipeline {
     agent any
@@ -23,12 +22,13 @@ pipeline {
         stage('Quality Checks') {
             environment {
                 scannerHome = tool 'sonar-scanner'
+                SQTOKEN = credentials('sonarqube')
             }
 
             steps {
                 sh 'echo "Running SonarScanner..."'
                 withSonarQubeEnv("${SQENV}") {
-                    sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=${SQPROJECTKEY} -Dsonar.host.url=${SQHOSTURL} -Dsonar.login=0525f30ac3619231110845e7f5ac6d7b3bbd9198"
+                    sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=${SQPROJECTKEY} -Dsonar.host.url=${SQHOSTURL} -Dsonar.login=${SQTOKEN}"
                 }
                 
                 dir('webapp') {
