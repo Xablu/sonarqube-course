@@ -1,3 +1,4 @@
+def scannerHome = ""
 def SQPROJECTKEY = "nodejsapp"
 def SQHOSTURL = "http://192.168.2.148:9000"
 def SQSCANNERHOME = "sonar-scanner"
@@ -22,7 +23,7 @@ pipeline {
             steps{
                 sh 'echo "Running SonarScanner..."'
                 // find the "tool" in Jenkins under Global Tool Configuration. Find the withSonarQubeEnv in the Jenkins System Configuration
-                def scannerHome = tool '${SQSCANNERHOME}'
+                scannerHome = tool '${SQSCANNERHOME}'
                 withSonarQubeEnv('${SQENV}')
                 sh '${scannerhome}/bin/sonar-scanner -Dsonar.projectKey="${SQPROJECTKEY}" -Dsonar.host.url="${SQHOSTURL}" -Dsonar.login="${sonartoken}"'
                 dir('webapp') {
