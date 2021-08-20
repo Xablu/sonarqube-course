@@ -22,7 +22,7 @@ pipeline {
         }
         stage('Quality Checks') {
             environment {
-                scannerHome = tool '"${SQSCANNERHOME}"'
+                scannerHome = tool 'sonar-scanner'
             }
 
             steps {
