@@ -22,13 +22,13 @@ pipeline {
         }
         stage('Quality Checks') {
             environment {
-                scannerHome = tool "${SQSCANNERHOME}"
+                scannerHome = tool '"${SQSCANNERHOME}"'
             }
 
             steps {
                 sh 'echo "Running SonarScanner..."'
                 withSonarQubeEnv("${SQENV}") {
-                    sh "sonar-scanner -Dsonar.projectKey=${SQPROJECTKEY} -Dsonar.host.url=${SQHOSTURL} -Dsonar.login=${SQTOKEN}"
+                    sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=${SQPROJECTKEY} -Dsonar.host.url=${SQHOSTURL} -Dsonar.login=${SQTOKEN}"
                 }
                 
                 dir('webapp') {
