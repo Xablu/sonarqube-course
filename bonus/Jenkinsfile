@@ -49,7 +49,7 @@ pipeline {
         }
         stage('Build Container') {
             steps {
-                dir ('bonus/build-docker-image') {
+                dir ('bonus') {
                     script {
                         docker.build('nodejsapp-sq:latest')
                     }
