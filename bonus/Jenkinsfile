@@ -3,7 +3,7 @@ def SQPROJECTKEY = "nodejsapp"
 def SQHOSTURL = "http://192.168.2.148:9000"
 def SQSCANNERHOME = "sonar-scanner"
 def SQENV = "sonarqube"
-def scannerHome = tool '${SQSCANNERHOME}'
+// def scannerHome = tool '${SQSCANNERHOME}'
 
 pipeline {
     agent any
