@@ -44,7 +44,7 @@ pipeline {
                     sh 'npm run-script build'
                 }
                 sh 'echo "Copy public folder to staging area.."'
-                sh 'cp -r ./webapp/build ./bonus/build-docker-image'
+                sh 'cp -r ./webapp/build ./bonus'
             }
         }
         stage('Build Container') {
