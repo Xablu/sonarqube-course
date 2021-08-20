@@ -1,0 +1,56 @@
+def SQPROJECTKEY = "nodejsapp"
+def SQHOSTURL = "http://192.168.2.148:9000"
+def SQSCANNERHOME = "sonar-scanner"
+def SQENV = "sonarqube"
+
+pipeline {
+    agent any
+    tools {nodejs "Node-14"}
+    environment {
+        CI = 'true'
+    }
+    stages {
+        stage('prepare') {
+            steps{
+                sh 'echo "Installing project dependencies.."'
+                dir('webapp') {
+                    sh 'npm install --save-dev cross-env'
+                }
+            }
+        }
+        stage('Quality Checks') {
+            steps{
+                sh 'echo "Running SonarScanner..."'
+                // find the "tool" in Jenkins under Global Tool Configuration. Find the withSonarQubeEnv in the Jenkins System Configuration
+                def scannerHome = tool '${SQSCANNERHOME}'
+                withSonarQubeEnv('${SQENV}')
+                sh '${scannerhome}/bin/sonar-scanner -Dsonar.projectKey="${SQPROJECTKEY}" -Dsonar.host.url="${SQHOSTURL}" -Dsonar.login="${sonartoken}"'
+                dir('webapp') {
+                    sh 'echo "Running npm test"'
+                    sh 'npm test'
+                }
+            }
+        }
+        stage('Build App') {
+            steps {
+                sh 'echo "Building optimized NodeJS app..."'
+                dir ('webapp') {
+                    sh 'npm run-script build'
+                }
+                sh 'echo "Copy public folder to staging area.."'
+                sh 'cp -r ./webapp/build ./bonus/build-docker-image'
+            }
+        }
+        stage('Build Container') {
+            steps {
+                dir ('bonus/build-docker-image') {
+                    script {
+                        docker.build('nodejsapp-sq:latest')
+                    }
+                }
+            }
+        }
+    }
+
+
+}
