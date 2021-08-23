@@ -23,8 +23,8 @@ pipeline {
             environment {
                 scannerHome = tool 'sonar-scanner'
                 SQTOKEN = credentials('sonarqube')
-                sqhost = '$SQHOSTURL'
-                sqkey = '$SQPROJECTKEY'
+                sqhost = ${SQHOSTURL}
+                sqkey = ${SQPROJECTKEY}
             }
 
             steps {
