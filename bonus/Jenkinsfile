@@ -28,7 +28,7 @@ pipeline {
             steps {
                 sh 'echo "Running SonarScanner..."'
                 withSonarQubeEnv("${SQENV}") {
-                    sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=${SQPROJECTKEY} -Dsonar.host.url=${SQHOSTURL} -Dsonar.login=$SQTOKEN"
+                    sh '${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=${SQPROJECTKEY} -Dsonar.host.url=${SQHOSTURL} -Dsonar.login=$SQTOKEN'
                 }
                 
                 dir('webapp') {
