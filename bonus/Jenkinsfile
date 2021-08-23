@@ -23,12 +23,14 @@ pipeline {
             environment {
                 scannerHome = tool 'sonar-scanner'
                 SQTOKEN = credentials('sonarqube')
+                sqhost - $SQHOSTURL
+                sqkey = $SQPROJECTKEY
             }
 
             steps {
                 sh 'echo "Running SonarScanner..."'
                 withSonarQubeEnv("${SQENV}") {
-                    sh('${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=$SQPROJECTKEY -Dsonar.host.url=$SQHOSTURL -Dsonar.login=$SQTOKEN')
+                    sh('${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=$sqkey -Dsonar.host.url=$sqhost -Dsonar.login=$SQTOKEN')
                 }
                 
                 dir('webapp') {
