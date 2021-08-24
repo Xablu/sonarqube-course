@@ -25,18 +25,16 @@ pipeline {
                 SQTOKEN = credentials('sonarqube')
                 sqhost = "${SQHOSTURL}"
                 sqkey = "${SQPROJECTKEY}"
-            }
-
-            steps {
-                script {
-                    NODEADDRESS = sh ( 
+                nodeaddress = sh ( 
                         script: 'echo $(echo ${JENKINS_URL} | awk -F\'//|:80\' \'{print $2}\')',
                         returnStdout: true
                         ).trim()
-                }
+            }
+
+            steps {
                 sh 'echo "Running SonarScanner..."'
                 withSonarQubeEnv("${SQENV}") {
-                    sh('${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=$sqkey -Dsonar.host.url="${NODEADDRESS}":9000 -Dsonar.login=$SQTOKEN')
+                    sh('${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=$sqkey -Dsonar.host.url=$nodeaddress:9000 -Dsonar.login=$SQTOKEN')
                 }
                 
                 dir('webapp') {
