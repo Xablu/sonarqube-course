@@ -62,9 +62,6 @@ pipeline {
                     script {
                         docker.build('$imagename:$imagetag')
                     }
-                    script {
-                        docker.run('$imagename:$imagetag').withRun('-p 80:80 -d')
-                    }
                 }
             }
         }
