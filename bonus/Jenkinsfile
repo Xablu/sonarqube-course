@@ -53,10 +53,17 @@ pipeline {
             }
         }
         stage('Build Container') {
+            environment {
+                imagename: "nodejsapp-sq"
+                imagetag: "latest"
+            }
             steps {
                 dir ('bonus') {
                     script {
-                        docker.build('nodejsapp-sq:latest')
+                        docker.build('$imagename:$imagetag')
+                    }
+                    script {
+                        docker.run('$imagename:$imagetag').withRun('-p 80:80 -d')
                     }
                 }
             }
