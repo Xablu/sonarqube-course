@@ -9,11 +9,11 @@ variables:
   tag: '$(Build.BuildId)'
 
 stages:
-- stage: Build
-  displayName: Build image
+- stage: Analyze
+  displayName: Analyze sourcecode
   jobs:
-  - job: Build
-    displayName: Build
+  - job: Analyze
+    displayName: Analyze job
     pool:
       vmImage: ubuntu-latest
     steps:
@@ -28,6 +28,14 @@ stages:
 # SQ project token 224a43a7e58c864b5ddcf797c03bf1e54364ffea
     - task: SonarQubeAnalyze@4
 
+- stage: Build
+  displayName: Build image
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: ubuntu-latest
+    steps:
 # Build a Docker image
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
     - task: Docker@2
