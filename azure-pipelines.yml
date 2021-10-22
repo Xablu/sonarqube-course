@@ -6,7 +6,7 @@
     cliProjectKey: 'devops-test'
     cliProjectName: 'devops-test'
     cliSources: '.'
-# SQ project token
+# SQ project token 224a43a7e58c864b5ddcf797c03bf1e54364ffea
 # Build a Docker image
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
