@@ -1,18 +1,4 @@
 # Docker
-- task: SonarQubePrepare@4
-  inputs:
-    SonarQube: 'sqplayground.xablu.com'
-    scannerMode: 'CLI'
-    configMode: 'manual'
-    cliProjectKey: 'devops-test'
-    cliProjectName: 'devops-test'
-    cliSources: '.'
-# SQ project token 224a43a7e58c864b5ddcf797c03bf1e54364ffea
-# Build a Docker image
-# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
-
-- task: SonarQubeAnalyze@4
-
 trigger:
 - main
 
@@ -31,6 +17,19 @@ stages:
     pool:
       vmImage: ubuntu-latest
     steps:
+    - task: SonarQubePrepare@4
+      inputs:
+        SonarQube: 'sqplayground.xablu.com'
+        scannerMode: 'CLI'
+        configMode: 'manual'
+        cliProjectKey: 'devops-test'
+        cliProjectName: 'devops-test'
+        cliSources: '.'
+# SQ project token 224a43a7e58c864b5ddcf797c03bf1e54364ffea
+    - task: SonarQubeAnalyze@4
+
+# Build a Docker image
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
     - task: Docker@2
       displayName: Build an image
       inputs:
