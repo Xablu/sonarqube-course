@@ -1,4 +1,12 @@
 # Docker
+- task: SonarQubePrepare@4
+  inputs:
+    scannerMode: 'CLI'
+    configMode: 'manual'
+    cliProjectKey: 'devops-test'
+    cliProjectName: 'devops-test'
+    cliSources: '.'
+# SQ project token
 # Build a Docker image
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
