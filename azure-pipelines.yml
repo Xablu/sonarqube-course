@@ -19,7 +19,7 @@ stages:
     steps:
     - task: SonarQubePrepare@4
       inputs:
-        SonarQube: 'sqplayground.xablu.com'
+        SonarQube: 'https://sqplayground.xablu.com'
         scannerMode: 'CLI'
         configMode: 'manual'
         cliProjectKey: 'devops-test'
