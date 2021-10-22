@@ -1,6 +1,7 @@
 # Docker
 - task: SonarQubePrepare@4
   inputs:
+    SonarQube: 'sqplayground.xablu.com'
     scannerMode: 'CLI'
     configMode: 'manual'
     cliProjectKey: 'devops-test'
@@ -9,6 +10,8 @@
 # SQ project token 224a43a7e58c864b5ddcf797c03bf1e54364ffea
 # Build a Docker image
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+- task: SonarQubeAnalyze@4
 
 trigger:
 - main
