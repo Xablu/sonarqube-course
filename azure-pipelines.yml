@@ -23,10 +23,13 @@ stages:
         scannerMode: 'CLI'
         configMode: 'manual'
         cliProjectKey: 'devops-test'
-        cliProjectName: 'devops-test'
-        cliSources: '.'
 # SQ project token 224a43a7e58c864b5ddcf797c03bf1e54364ffea
     - task: SonarQubeAnalyze@4
+
+    # Publish Quality Gate Result task
+    - task: SonarQubePublish@4
+      inputs:
+        pollingTimeoutSec: '300'
 
 - stage: Build
   displayName: Build image
