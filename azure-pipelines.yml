@@ -6,31 +6,38 @@
 trigger:
 - main
 
-pool:
-  vmImage: ubuntu-latest
-variables:
-  name: NODE_OPTIONS
-  value: --use-openssl-ca
+stages:
+  - stage: Analyze
+    displayName: Analyze sourcecode
+    jobs:
+      - job: Analyze
+        displayName: Analyze job
+        pool:
+          vmImage: ubuntu-latest
+        variables:
+          name: NODE_OPTIONS
+          value: --use-openssl-ca
+        steps:
+          - task: SonarQubePrepare@4
+            inputs:
+              SonarQube: 'sqplayground'
+              scannerMode: 'CLI'
+              configMode: 'manual'
+              cliProjectKey: 'devops-test'
+              cliProjectName: 'devops-test'
+              cliSources: './webapp/'
+          - task: SonarQubeAnalyze@4
+          - task: SonarQubePublish@4
+            inputs:
+              pollingTimeoutSec: '300'
+      - job: build Node project
+        steps:
+          - task: NodeTool@0
+            inputs:
+              versionSpec: '10.x'
+            displayName: 'Install Node.js'
 
-steps:
-- task: SonarQubePrepare@4
-  inputs:
-    SonarQube: 'sqplayground'
-    scannerMode: 'CLI'
-    configMode: 'manual'
-    cliProjectKey: 'devops-test'
-    cliProjectName: 'devops-test'
-    cliSources: './webapp/'
-- task: SonarQubeAnalyze@4
-- task: SonarQubePublish@4
-  inputs:
-    pollingTimeoutSec: '300'
-- task: NodeTool@0
-  inputs:
-    versionSpec: '10.x'
-  displayName: 'Install Node.js'
-
-- script: |
-    npm install
-    npm run build
-  displayName: 'npm install and build'
+          - script: |
+              npm install
+              npm run build
+            displayName: 'npm install and build'
