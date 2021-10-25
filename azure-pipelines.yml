@@ -30,7 +30,8 @@ stages:
           - task: SonarQubePublish@4
             inputs:
               pollingTimeoutSec: '300'
-      - job: build Node project
+      - job: build
+        displayName: Build node project
         steps:
           - task: NodeTool@0
             inputs:
