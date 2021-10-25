@@ -20,6 +20,10 @@ stages:
       - name: NODE_OPTIONS
         value: --use-openssl-ca
     steps:
+    - task: Npm@1
+      inputs:
+        command: 'install'
+        workingDir: '/webapp/'
     - task: SonarQubePrepare@4
       inputs:
         SonarQube: 'sqplayground'
