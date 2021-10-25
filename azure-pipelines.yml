@@ -19,7 +19,7 @@ stages:
     steps:
     - task: SonarQubePrepare@4
       inputs:
-        SonarQube: 'SQ Playground'
+        SonarQube: 'sqplayground'
         scannerMode: 'CLI'
         configMode: 'manual'
         cliProjectKey: 'devops-test'
