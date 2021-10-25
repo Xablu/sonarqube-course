@@ -23,7 +23,7 @@ stages:
     - task: Npm@1
       inputs:
         command: 'install'
-        workingDir: '/webapp/'
+        workingDir: './webapp/'
     - task: SonarQubePrepare@4
       inputs:
         SonarQube: 'sqplayground'
