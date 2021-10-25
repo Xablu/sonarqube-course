@@ -15,8 +15,8 @@ stages:
         pool:
           vmImage: ubuntu-latest
         variables:
-          name: NODE_OPTIONS
-          value: --use-openssl-ca
+          - name: NODE_OPTIONS
+            value: --use-openssl-ca
         steps:
           - task: SonarQubePrepare@4
             inputs:
