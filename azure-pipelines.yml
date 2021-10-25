@@ -13,7 +13,18 @@ pool:
     value: --use-openssl-ca
 
 steps:
-
+- task: SonarQubePrepare@4
+  inputs:
+    SonarQube: 'sqplayground'
+    scannerMode: 'CLI'
+    configMode: 'manual'
+    cliProjectKey: 'devops-test'
+    cliProjectName: 'devops-test'
+    cliSources: './webapp/'
+- task: SonarQubeAnalyze@4
+- task: SonarQubePublish@4
+  inputs:
+    pollingTimeoutSec: '300'
 - task: NodeTool@0
   inputs:
     versionSpec: '10.x'
